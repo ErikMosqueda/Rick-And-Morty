@@ -9,7 +9,7 @@
           personajesEncontrados: [],
           buscar: '',
           cont:2,
-          contador:1
+          contador:2
         }
       },
       computed: {
@@ -43,12 +43,13 @@
             console.log(response.config)
             this.info = response.data.info;
             this.personajes = response.data.results;
+            console.log(info.next);
           })
           
 
         },
         restar(contador){
-          this.contador--
+          
           API_URL='https://rickandmortyapi.com/api/character/?page='+contador
           console.log(API_URL)
           axios.get(API_URL)
@@ -56,6 +57,7 @@
             console.log(response.config)
             this.info = response.data.info;
             this.personajes = response.data.results;
+            console.log(info.prev);
           })
           
 

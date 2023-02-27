@@ -144,6 +144,7 @@
                         <p><strong>Origen:</strong>  {{p.origin.name}}  </p>
                         <p><strong>Locación:</strong>  {{p.location.name}}  </p>
                         <p><strong>Fecha de creación:</strong>  {{p.created}}  </p>
+                       <p></p> 
                         
               </div>
             </div>
@@ -183,7 +184,7 @@
 
 
         </div>
-        <!-- <div class="grid grid-cols-4 gap-4" v-for="p in personajes">
+        <!-- <div><div class="grid grid-cols-4 gap-4" v-for="p in personajes">
             <div class="card">01
                 <a >{{ p.name }} id:{{ p.id }}</a> 
             </div>

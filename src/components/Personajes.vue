@@ -8,6 +8,9 @@
           personajes: [],
           personajesEncontrados: [],
           buscar: '',
+          siguiente:null,
+          anterior:null,
+          pagina:1,
           cont:2,
           contador:2
         }
@@ -28,7 +31,7 @@
       },
       methods: {
         pag(num) {
-          //API_URL='https://rickandmortyapi.com/api/character/?page='+num
+          //API_URL='https://rickandmortyapi.com/api/character/?page='+this.pagina
           console.log(API_URL)
           axios.get(API_URL)
           .then((response) => {
@@ -38,16 +41,14 @@
           })
            this.cont++ 
         },
-        sumar(contador){
-          API_URL='https://rickandmortyapi.com/api/character'
+        navpag(num){
+          API_URL='https://rickandmortyapi.com/api/character/?page='+this.pagina
           //console.log(API_URL)
           axios.get(API_URL)
           .then((response) => {
             //console.log(response.config)
-            this.sig= response.data.info.next;
-            console.log(response.data.info.next)
-          
-            this.info = response.data.info;
+            this.info= response.data.info;
+            //console.log(response.data.info.next)
             this.personajes = response.data.results;
           })
           
@@ -105,16 +106,16 @@
           <!-- CAMBIAR DE PAGINAS -->
           <div class="">
              <div class=" justify-between flex ml-3 mr-3 mb-3" >
-                <div class="hover:-translate-y-1 hover:scale-100" v-if="contador>=3 && contador<=42">
-                  <button @click="restar(contador)" class=" rounded-lg border-2 border-lime-500 bg-slate-200 shadow-xl shadow-lime-200/50 px-3 py-2 "> Anterior </button>
+                <div class="hover:-translate-y-1 hover:scale-100">
+                  <button class=" rounded-lg border-2 border-lime-500 shadow-xl bg-slate-200 shadow-lime-200/50 px-3 py-2" v-if="pagina!==1" @click="$event => navpag(pagina--)" > Anterior</button>
                 </div>
                 
                  <div class="hover:-translate-y-1 hover:scale-100">
                   
                 </div>
                 
-                <div class="hover:-translate-y-1 hover:scale-100" v-if="contador>=1 && contador<=42">
-                  <button @click="sumar(contador)" class=" rounded-lg border-2 border-lime-500 shadow-xl bg-slate-200 shadow-lime-200/50 px-3 py-2"> Siguiente</button>
+                <div class="hover:-translate-y-1 hover:scale-100">
+                  <button class=" rounded-lg border-2 border-lime-500 shadow-xl bg-slate-200 shadow-lime-200/50 px-3 py-2" v-if="pagina!==this.info.pages" @click="$event => navpag(pagina++)" > Siguiente</button>
                 </div>
 
                
@@ -144,7 +145,7 @@
                         <p><strong>Origen:</strong>  {{p.origin.name}}  </p>
                         <p><strong>Locación:</strong>  {{p.location.name}}  </p>
                         <p><strong>Fecha de creación:</strong>  {{p.created}}  </p>
-                       <p></p> 
+                       
                         
               </div>
             </div>
